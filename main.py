@@ -1,5 +1,7 @@
+
 from dotenv import load_dotenv
 import os
+import argparse
 import requests
 from urllib.parse import urlparse
 
@@ -39,8 +41,12 @@ def shorten_link(token: str, link: str) -> str:
 def main():
     load_dotenv()
     token = os.environ['BITLY_API_KEY']
-    
-    user_url = input('Введите ссылку: ')
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("url", help="long or shot url", type=str)
+    args = parser.parse_args()
+    user_url = args.url
+
     if is_bitlink(token, user_url):
         try:
             print(f'По вашей ссылке перешли: \
